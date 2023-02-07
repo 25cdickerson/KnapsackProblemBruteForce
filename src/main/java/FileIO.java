@@ -107,10 +107,8 @@ public class FileIO {
 		BTree tree = new BTree();
 		
 		// buildTree
-		System.out.println("Before Buildtree");
-		tree.buildTree(file.Item_name, file.Item_weight, file.Item_value);
-		System.out.println("After Buildtree");
-		
+		ArrayList<BNode> abTree = tree.buildTree(file.Item_name, file.Item_weight, file.Item_value);
+		System.out.println(tree.leftChild(14, abTree).name);
 	}
 
 }

@@ -21,7 +21,7 @@ public class BTree {
 	
 	
 	// Need to figure out how to build tree here
-	public void buildTree(ArrayList<String> Item_name, ArrayList<Integer> Item_weight, ArrayList<Integer> Item_value) {
+	public ArrayList<BNode> buildTree(ArrayList<String> Item_name, ArrayList<Integer> Item_weight, ArrayList<Integer> Item_value) {
 		ArrayList<BNode> arr = genBNodeList(Item_name, Item_weight, Item_value);
 		
 		ArrayList<Integer> numNodes = new ArrayList<Integer>();
@@ -40,18 +40,15 @@ public class BTree {
 			}
 			ret.addAll(temp);
 		}
-		
-		for(int i = 0; i < 32; i++) {
-			System.out.println(ret.get(i).name);
-		}
-        /*for (int i = 0; i < arr.size() -1; i++) {
-        	 
-            // Printing the parent and both childrens
-            System.out.print(
-                " PARENT : " + arr.get(i).name);
- 
-            // By here new line is required
-            System.out.println();
-        }*/
+		return ret;
 	}
+	
+	public BNode leftChild(int parentIndex, ArrayList<BNode> ret) {
+		return ret.get(2 * parentIndex + 1);
+	}
+	
+	public BNode rightChild(int parentIndex, ArrayList<BNode> ret) {
+		return ret.get(2 * parentIndex + 2);
+	}
+	
 }
