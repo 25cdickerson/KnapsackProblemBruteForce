@@ -7,9 +7,9 @@ import java.util.Scanner;
 public class FileIO {
 
 	// Global Variables
-	ArrayList<String> Item_name = new ArrayList<String>();
-	ArrayList<Integer> Item_weight = new ArrayList<Integer>();
-	ArrayList<Integer> Item_value = new ArrayList<Integer>();
+	public ArrayList<String> Item_name = new ArrayList<String>();
+	public ArrayList<Integer> Item_weight = new ArrayList<Integer>();
+	public ArrayList<Integer> Item_value = new ArrayList<Integer>();
 	int length = 0;
 	
 	public void readInput() {
@@ -88,10 +88,29 @@ public class FileIO {
 	}
 
 
+	public int getUserInput() {
+		Scanner text = new Scanner(System.in);
+		System.out.println("How much Weight? ");
+		
+		int ret = Integer.parseInt(text.nextLine());
+		text.close();
+		
+		return ret;
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		// get the file info
+		FileIO file = new FileIO();
+		file.readInput();
+		
+		BTree tree = new BTree();
+		
+		// buildTree
+		System.out.println("Before Buildtree");
+		tree.buildTree(file.Item_name, file.Item_weight, file.Item_value);
+		System.out.println("After Buildtree");
+		
 	}
 
 }
