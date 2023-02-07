@@ -35,8 +35,6 @@ public class FileIO {
 			System.out.println("An error has occurred reading the input file");
 			e.printStackTrace();
 		}
-	    
-	    length = length / 3;
 	}
 	
 	
@@ -108,7 +106,9 @@ public class FileIO {
 		
 		// buildTree
 		ArrayList<BNode> abTree = tree.buildTree(file.Item_name, file.Item_weight, file.Item_value);
-		System.out.println(tree.leftChild(14, abTree).name);
+		
+		int in = file.getUserInput();
+		tree.Traverse(abTree, file.getLength(), in);
 	}
 
 }
