@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class BTree {
@@ -69,6 +72,14 @@ public class BTree {
 	// Generate Binary Strings For Traversal
 	public ArrayList<String> genBinStrings(int length){
 		ArrayList<String> binStrings = new ArrayList<String>();
+		
+		String zeroStr = "";
+		for(int i = 0; i < length; i++) {
+			zeroStr = zeroStr + '0';
+		}
+		
+		binStrings.add(zeroStr);
+		
 		for (int i=0; i < (Math.pow(2,length)); i++) {
 			if(Integer.toBinaryString(i).length() == length) {
 				binStrings.add(Integer.toBinaryString(i));
@@ -79,14 +90,16 @@ public class BTree {
 	}
 	
 	// Traverse the tree
-	public void Traverse(ArrayList<BNode> tree, int numItems, int weight) {
+	public void Traverse(ArrayList<BNode> tree, int numItems, int weight) throws IOException {
 		ArrayList<String> binStrings = genBinStrings(numItems);
 		int currentVal = 0;
 		int currentWeight = 0;
 		int bestVal = 0;
 		int bestWeight = 0;
-		String bestBinString = null;
+		String bestBinString = binStrings.get(0);
 		BNode trav;
+		
+		BufferedWriter out = new BufferedWriter(new FileWriter("output.txt"));
 		
 		
 		for(int i = 0; i < binStrings.size(); i++) {
@@ -94,7 +107,7 @@ public class BTree {
 			currentVal = 0;
 			currentWeight = 0;
 			
-			for(int x = 0; x < binStrings.get(i).length() - 1;  x++) {
+			for(int x = 0; x < binStrings.get(i).length();  x++) {
 				if(0 == Integer.parseInt(String.valueOf(binStrings.get(i).charAt(x)))) {
 					trav = leftChild(trav.index, tree);
 				}
@@ -104,6 +117,9 @@ public class BTree {
 					trav = rightChild(trav.index, tree);
 				}
 			}
+			out.write(binStrings.get(i) + '\n');
+			out.write(Integer.toString(currentWeight) + '\n');
+			out.write(Integer.toString(currentVal) + '\n');
 			System.out.println("Current Val: " + currentVal + " Current Weight: " + currentWeight + " Current Bin String: " + binStrings.get(i));
 			if((currentVal > bestVal) && (currentWeight <= weight)) {
 				bestVal = currentVal;
@@ -111,6 +127,10 @@ public class BTree {
 				bestBinString = binStrings.get(i);			
 			}
 		}
+		out.write(bestBinString + '\n');
+		out.write(Integer.toString(bestWeight) + '\n');
+		out.write(Integer.toString(bestVal) + '\n');
+		out.close();
 		System.out.println("Best Val: " + bestVal + " Best Weight: " + bestWeight + " Best Bin String: " + bestBinString);
 	}
 	
