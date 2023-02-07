@@ -13,6 +13,7 @@ public class FileIO {
 	public ArrayList<Integer> Item_value = new ArrayList<Integer>();
 	int length = 0;
 	
+	// Get the values from the input file
 	public void readInput() {
 		// Make sure arrays are clear for new reading
 		Item_name.clear();
@@ -87,6 +88,7 @@ public class FileIO {
 	}
 
 
+	// Ask the user for weight input
 	public int getUserInput() {
 		Scanner text = new Scanner(System.in);
 		System.out.println("How much Weight? ");
@@ -97,8 +99,8 @@ public class FileIO {
 		return ret;
 	}
 
+	// Main method
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		// get the file info
 		FileIO file = new FileIO();
 		file.readInput();
@@ -108,6 +110,7 @@ public class FileIO {
 		// buildTree
 		ArrayList<BNode> abTree = tree.buildTree(file.Item_name, file.Item_weight, file.Item_value);
 		
+		// Get user input and traverse the tree, write it out to the file
 		int in = file.getUserInput();
 		tree.Traverse(abTree, file.getLength(), in);
 	}
