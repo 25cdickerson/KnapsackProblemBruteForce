@@ -133,7 +133,6 @@ public class BTree {
 			out.write(binStrings.get(i) + '\n');
 			out.write(Integer.toString(currentWeight) + '\n');
 			out.write(Integer.toString(currentVal) + '\n');
-			System.out.println("Current Val: " + currentVal + " Current Weight: " + currentWeight + " Current Bin String: " + binStrings.get(i));
 			
 			// Compare current and best value
 			if((currentVal > bestVal) && (currentWeight <= weight)) {
@@ -148,8 +147,5 @@ public class BTree {
 		out.write(Integer.toString(bestWeight) + '\n');
 		out.write(Integer.toString(bestVal));
 		out.close();
-		System.out.println("Best Val: " + bestVal + " Best Weight: " + bestWeight + " Best Bin String: " + bestBinString);
 	}
-	
-	
 }

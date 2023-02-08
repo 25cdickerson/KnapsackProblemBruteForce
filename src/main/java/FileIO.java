@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,20 +23,33 @@ public class FileIO {
 		length = 0;
 		
 		// Create File Variable and read
-		File myFile = new File("knapsack_input.txt");
-	    try {
-			Scanner myReader = new Scanner(myFile);
-			while(myReader.hasNextLine()) {
-				Item_name.add(myReader.nextLine());
-				Item_weight.add(Integer.parseInt(myReader.nextLine()));
-				Item_value.add(Integer.parseInt(myReader.nextLine()));
-				length++;
+		// Replace MainClass with the name of your main class
+		String jarDir;
+		try {
+			jarDir = ClassLoader.getSystemClassLoader().getResource(".").toURI().toString();
+			jarDir = jarDir + "knapsack_input.txt";
+			jarDir = jarDir.substring(5, jarDir.length());
+			File myFile = new File(jarDir);
+			System.out.println("file path: " + myFile.getPath());
+			
+		    try {
+				Scanner myReader = new Scanner(myFile);
+				while(myReader.hasNextLine()) {
+					Item_name.add(myReader.nextLine());
+					Item_weight.add(Integer.parseInt(myReader.nextLine()));
+					Item_value.add(Integer.parseInt(myReader.nextLine()));
+					length++;
+				}
+				myReader.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				System.out.println("An error has occurred reading the input file");
+				e.printStackTrace();
 			}
-			myReader.close();
-		} catch (FileNotFoundException e) {
+		} catch (URISyntaxException e1) {
 			// TODO Auto-generated catch block
-			System.out.println("An error has occurred reading the input file");
-			e.printStackTrace();
+			System.out.println("Couldn't load file directory");
+			e1.printStackTrace();
 		}
 	}
 	
