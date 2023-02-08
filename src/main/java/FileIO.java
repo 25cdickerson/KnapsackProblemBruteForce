@@ -104,15 +104,16 @@ public class FileIO {
 		// get the file info
 		FileIO file = new FileIO();
 		file.readInput();
-		
+			
 		BTree tree = new BTree();
-		
+			
 		// buildTree
 		ArrayList<BNode> abTree = tree.buildTree(file.Item_name, file.Item_weight, file.Item_value);
-		
+			
 		// Get user input and traverse the tree, write it out to the file
 		int in = file.getUserInput();
 		tree.Traverse(abTree, file.getLength(), in);
+
 	}
 
 }

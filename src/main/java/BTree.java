@@ -78,18 +78,19 @@ public class BTree {
 	public ArrayList<String> genBinStrings(int length){
 		ArrayList<String> binStrings = new ArrayList<String>();
 		
-		// Add the binary number for 0 because the for loop doesn't add that
-		String zeroStr = "";
-		for(int i = 0; i < length; i++) {
-			zeroStr = zeroStr + '0';
-		}
-		
-		binStrings.add(zeroStr);
-		
 		// loop through each option of a binary string of some length, add to the binary array
 		for (int i=0; i < (Math.pow(2,length)); i++) {
 			if(Integer.toBinaryString(i).length() == length) {
 				binStrings.add(Integer.toBinaryString(i));
+			}
+			else {
+				// Make all of the lesser bin strings the given length (To get all combo)
+				String bin = Integer.toBinaryString(i);
+				StringBuilder binBuilder = new StringBuilder(bin);
+				while(binBuilder.length() < length){
+					binBuilder.insert(0, '0');
+				}
+				binStrings.add(binBuilder.toString());
 			}
 		}
 		
