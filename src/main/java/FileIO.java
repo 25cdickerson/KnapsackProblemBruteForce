@@ -25,10 +25,12 @@ public class FileIO {
 		// Create File Variable and read
 		// Replace MainClass with the name of your main class
 		String jarDir;
-		try {
-			jarDir = ClassLoader.getSystemClassLoader().getResource(".").toURI().toString();
-			jarDir = jarDir + "knapsack_input.txt";
-			jarDir = jarDir.substring(5, jarDir.length());
+		//try {
+			//jarDir = ClassLoader.getSystemClassLoader().getResource(".").toURI().toString();
+			jarDir = System.getProperty("user.dir");
+			jarDir = jarDir + File.separator + "knapsack_input.txt";
+			//jarDir = jarDir.substring(6, jarDir.length());
+			System.out.println(jarDir);
 			File myFile = new File(jarDir);
 			
 		    try {
@@ -45,11 +47,11 @@ public class FileIO {
 				System.out.println("An error has occurred reading the input file");
 				e.printStackTrace();
 			}
-		} catch (URISyntaxException e1) {
+		/*} catch (URISyntaxException e1) {
 			// TODO Auto-generated catch block
 			System.out.println("Couldn't load file directory");
 			e1.printStackTrace();
-		}
+		}*/
 	}
 	
 	

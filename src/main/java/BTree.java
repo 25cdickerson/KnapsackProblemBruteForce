@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -111,10 +112,10 @@ public class BTree {
 		// Create new writer to write to a file
 		String jarDir;
 		BufferedWriter out;
-		try {
-			jarDir = ClassLoader.getSystemClassLoader().getResource(".").toURI().toString();
-			jarDir = jarDir + "output.txt";
-			jarDir = jarDir.substring(5, jarDir.length());
+		//try {
+			jarDir = System.getProperty("user.dir");
+			jarDir = jarDir + File.separator + "output.txt";
+			//jarDir = jarDir.substring(6, jarDir.length());
 			out = new BufferedWriter(new FileWriter(jarDir));
 	
 			
@@ -156,9 +157,9 @@ public class BTree {
 			out.write(Integer.toString(bestWeight) + '\n');
 			out.write(Integer.toString(bestVal));
 			out.close();
-		} catch (URISyntaxException e) {
+		/*} catch (URISyntaxException e) {
 			System.out.println("Cannot write to output file");
 			e.printStackTrace();
-		}
+		}*/
 	}
 }
