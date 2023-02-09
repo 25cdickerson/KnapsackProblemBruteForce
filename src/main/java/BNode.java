@@ -12,10 +12,5 @@ public class BNode {
 		this.name = name;
 		this.weight = weight;
 		this.value = value;
-	}
-	
-	
-	
-	
-	
+	}	
 }

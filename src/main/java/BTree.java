@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class BTree {
@@ -108,44 +109,56 @@ public class BTree {
 		BNode trav;
 		
 		// Create new writer to write to a file
-		BufferedWriter out = new BufferedWriter(new FileWriter("output.txt"));
-		
-		
-		// Loop through each of the binary strings
-		for(int i = 0; i < binStrings.size(); i++) {
-			trav = tree.get(0);
-			currentVal = 0;
-			currentWeight = 0;
+		String jarDir;
+		BufferedWriter out;
+		try {
+			jarDir = ClassLoader.getSystemClassLoader().getResource(".").toURI().toString();
+			jarDir = jarDir + "output.txt";
+			jarDir = jarDir.substring(5, jarDir.length());
+			out = new BufferedWriter(new FileWriter(jarDir));
+	
 			
-			// loop though each value within the binary strings
-			for(int x = 0; x < binStrings.get(i).length();  x++) {
-				// if zero, go left, if one go right and add the current values and weights
-				if(0 == Integer.parseInt(String.valueOf(binStrings.get(i).charAt(x)))) {
-					trav = leftChild(trav.index, tree);
+			
+			
+			// Loop through each of the binary strings
+			for(int i = 0; i < binStrings.size(); i++) {
+				trav = tree.get(0);
+				currentVal = 0;
+				currentWeight = 0;
+				
+				// loop though each value within the binary strings
+				for(int x = 0; x < binStrings.get(i).length();  x++) {
+					// if zero, go left, if one go right and add the current values and weights
+					if(0 == Integer.parseInt(String.valueOf(binStrings.get(i).charAt(x)))) {
+						trav = leftChild(trav.index, tree);
+					}
+					else if(1 == Integer.parseInt(String.valueOf(binStrings.get(i).charAt(x)))) {
+						currentVal = currentVal + trav.value;
+						currentWeight = currentWeight + trav.weight;
+						trav = rightChild(trav.index, tree);
+					}
 				}
-				else if(1 == Integer.parseInt(String.valueOf(binStrings.get(i).charAt(x)))) {
-					currentVal = currentVal + trav.value;
-					currentWeight = currentWeight + trav.weight;
-					trav = rightChild(trav.index, tree);
+				// Write the value of the current path
+				out.write(binStrings.get(i) + '\n');
+				out.write(Integer.toString(currentWeight) + '\n');
+				out.write(Integer.toString(currentVal) + '\n');
+				
+				// Compare current and best value
+				if((currentVal > bestVal) && (currentWeight <= weight)) {
+					bestVal = currentVal;
+					bestWeight = currentWeight;
+					bestBinString = binStrings.get(i);			
 				}
 			}
-			// Write the value of the current path
-			out.write(binStrings.get(i) + '\n');
-			out.write(Integer.toString(currentWeight) + '\n');
-			out.write(Integer.toString(currentVal) + '\n');
 			
-			// Compare current and best value
-			if((currentVal > bestVal) && (currentWeight <= weight)) {
-				bestVal = currentVal;
-				bestWeight = currentWeight;
-				bestBinString = binStrings.get(i);			
-			}
+			// Write out the best value
+			out.write(bestBinString + '\n');
+			out.write(Integer.toString(bestWeight) + '\n');
+			out.write(Integer.toString(bestVal));
+			out.close();
+		} catch (URISyntaxException e) {
+			System.out.println("Cannot write to output file");
+			e.printStackTrace();
 		}
-		
-		// Write out the best value
-		out.write(bestBinString + '\n');
-		out.write(Integer.toString(bestWeight) + '\n');
-		out.write(Integer.toString(bestVal));
-		out.close();
 	}
 }

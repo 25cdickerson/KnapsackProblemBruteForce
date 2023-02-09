@@ -30,7 +30,6 @@ public class FileIO {
 			jarDir = jarDir + "knapsack_input.txt";
 			jarDir = jarDir.substring(5, jarDir.length());
 			File myFile = new File(jarDir);
-			System.out.println("file path: " + myFile.getPath());
 			
 		    try {
 				Scanner myReader = new Scanner(myFile);
